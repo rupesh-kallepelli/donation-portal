@@ -1,0 +1,173 @@
+.terms-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.terms-modal {
+    background: #fff8f6;
+    border-radius: 14px;
+    box-shadow: 0 4px 24px rgba(229,57,53,0.18);
+    padding: 2rem 2.5rem;
+    max-width: 420px;
+    width: 90vw;
+    color: #333;
+    position: relative;
+}
+
+.terms-modal h2 {
+    color: #e53935;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.terms-content {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.terms-close {
+    background: #e53935;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1.2rem;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(229,57,53,0.08);
+    transition: background 0.2s;
+    position: absolute;
+    right: 1.2rem;
+    bottom: 1.2rem;
+}
+.terms-close:hover {
+    background: #ff8a65;
+}
+.terms-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.98rem;
+    color: #333;
+}
+
+.registration-form {
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: rgba(255,255,255,0.92);
+    border-radius: 18px;
+    box-shadow: 0 4px 16px rgba(229,57,53,0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+
+.form-control {
+    padding: 0.75rem 1rem;
+    border: 1px solid #e53935;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: #fff8f6;
+    color: #333;
+    transition: border 0.2s;
+}
+
+.mobile-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.mobile-ext-container {
+    display: flex;
+    align-items: center;
+    background: #ffe3e0;
+    border-radius: 8px;
+    padding: 0.25rem 0.5rem;
+    box-shadow: 0 1px 4px rgba(229,57,53,0.08);
+}
+
+.mobile-flag {
+    font-size: 1.2rem;
+    margin-right: 4px;
+}
+
+.mobile-ext-select {
+    border: none;
+    background: transparent;
+    font-size: 0.95rem;
+    color: #e53935;
+    font-weight: bold;
+    padding: 0.15rem 0.5rem;
+    outline: none;
+    min-width: 60px;
+    max-width: 120px;
+    max-height: 2.2em;
+    cursor: pointer;
+}
+
+/* Limit dropdown height and ensure it opens downward */
+.mobile-ext-select option {
+    font-size: 0.95rem;
+    padding: 0.10rem 0.3rem;
+}
+
+.form-control:focus {
+    border-color: #ff8a65;
+    outline: none;
+}
+
+.form-checkbox {
+    accent-color: #e53935;
+    margin-right: 0.5rem;
+}
+
+.form-submit {
+    background: linear-gradient(90deg, #e53935 0%, #ff8a65 100%);
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(229,57,53,0.08);
+    transition: background 0.2s, transform 0.2s;
+}
+
+.form-submit:hover {
+    background: #e53935;
+    transform: translateY(-2px) scale(1.03);
+}
+
+.registration-title {
+    text-align: center;
+    color: #e53935;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    text-shadow: 1px 1px 2px #ffe082;
+}
+.form-error {
+    color: #d32f2f;
+    font-size: 0.9rem;
+    margin-top: -0.5rem;
+    margin-bottom: 0.5rem;
+}   

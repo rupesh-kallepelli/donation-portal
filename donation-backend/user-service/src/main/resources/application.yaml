@@ -1,0 +1,7 @@
+spring:
+    application:
+        name: user-service
+server:
+    port: 8081
+userservice:
+    url: http://localhost:8090
