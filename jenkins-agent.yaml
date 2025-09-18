@@ -5,6 +5,8 @@ metadata:
     app: jenkins-agent
   name: jenkins-agent
 spec:
+  ttlSecondsAfterFinished: 3600
+  restartPolicy: Never
   containers:
   - name: jnlp
     image: jenkins/inbound-agent:latest
