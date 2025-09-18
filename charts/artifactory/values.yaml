@@ -1711,7 +1711,7 @@ nginx:
 
   service:
     ## For minikube, set this to NodePort, elsewhere use LoadBalancer
-    type: LoadBalancer
+    type: NodePort
     ssloffload: false
     ## @param service.ssloffloadForceHttps Only enabled when service.ssloffload is set to True.
     ## Force all requests from NGINX to the upstream server are over HTTPS, even when SSL offloading is enabled.
