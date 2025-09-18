@@ -1,7 +1,7 @@
 pipeline {
     agent {
         kubernetes {
-            label 'inline-agent'
+            label 'jenkins-agent'
             defaultContainer 'jnlp'
             yamlFile "jenkins-agent.yaml"
         }
