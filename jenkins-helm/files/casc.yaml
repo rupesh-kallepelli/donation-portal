@@ -7,7 +7,7 @@ jenkins:
         - id: admin
           password: admin123
   authorizationStrategy:
-    loggedInUsersCanDoAnything:
+    loggedInUsersCanDoAnything:w
       allowAnonymousRead: false
   clouds:
     - kubernetes:
