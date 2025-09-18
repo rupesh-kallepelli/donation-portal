@@ -16,10 +16,6 @@ pipeline {
                         dir('api-gateway') {
                             container('java') {
                                 script {
-                                    echo "Hello from a Kubernetes pod!"
-                                    sh 'whoami'
-                                    sh 'printenv'
-                                    sh 'ls -lrt'
                                     sh "chmod +x ${pwd()}/mvnw"
                                     sh '${pwd()}/mvnw clean install -DskipTests'
                                 }
