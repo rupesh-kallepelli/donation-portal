@@ -10,13 +10,18 @@ pipeline {
         stage('Hello') {
             steps {
                 dir(env.WORKSPACE) {
-                    container('java') {
-                        script {
-                            echo "Hello from a Kubernetes pod!"
-                            sh 'whoami'
-                            sh 'printenv'
-                            sh 'ls -lrt'
-                            sh './donation-backend/api-gateway/mvnw clean install -DskipTests'
+                    dir('donation-backend') {
+                        dir('api-gateway') {
+                            container('java') {
+                                script {
+                                    echo "Hello from a Kubernetes pod!"
+                                    sh 'whoami'
+                                    sh 'printenv'
+                                    sh 'ls -lrt'
+                                    sh "chmod + ${pwd()}/mvnw"
+                                    sh '${pwd()}/mvnw clean install -DskipTests'
+                                }
+                            }
                         }
                     }
                 }
