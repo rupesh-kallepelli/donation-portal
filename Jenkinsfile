@@ -1,3 +1,5 @@
+#!/bin/bash groovy
+
 pipeline {
     agent {
         kubernetes {
