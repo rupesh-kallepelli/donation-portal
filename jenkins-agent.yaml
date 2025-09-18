@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+  - name: jnlp
+    image: jenkins/inbound-agent:latest
+    tty: true
+    volumeMounts:
+    - name: workspace-volume
+      mountPath: /home/jenkins/agent
+  - name: java
+    image: openjdk:17-slim
+    commad: cat
+  volumes:
+  - name: workspace-volume
+    emptyDir: {}

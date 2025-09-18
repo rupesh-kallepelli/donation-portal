@@ -3,28 +3,20 @@ pipeline {
         kubernetes {
             label 'inline-agent'
             defaultContainer 'jnlp'
-            yaml """
-apiVersion: v1
-kind: Pod
-spec:
-  containers:
-  - name: jnlp
-    image: jenkins/inbound-agent:latest
-    tty: true
-    volumeMounts:
-    - name: workspace-volume
-      mountPath: /home/jenkins/agent
-  volumes:
-  - name: workspace-volume
-    emptyDir: {}
-"""
+            yaml "jenkins-agent.yaml"
         }
     }
     stages {
         stage('Hello') {
-            steps {
-                echo "Hello from a Kubernetes pod!"
-                sh 'whoami'
+            dir(env.WORKSPACE) {
+                container('java') {
+                    steps {
+                        echo "Hello from a Kubernetes pod!"
+                        sh 'whoami'
+                        sh 'java -version'
+                        sh './donation-backend/api-gateway/mvw clean install -DskipTests'
+                    }
+                }
             }
         }
     }
