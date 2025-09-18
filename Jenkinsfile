@@ -18,7 +18,7 @@ pipeline {
                                     sh 'whoami'
                                     sh 'printenv'
                                     sh 'ls -lrt'
-                                    sh "chmod + ${pwd()}/mvnw"
+                                    sh "chmod +x ${pwd()}/mvnw"
                                     sh '${pwd()}/mvnw clean install -DskipTests'
                                 }
                             }
