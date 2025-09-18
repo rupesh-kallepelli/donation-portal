@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ .Values.master.serviceAccount.name }}
+  labels:
+    app.kubernetes.io/name: jenkins
+    app.kubernetes.io/instance: jenkins

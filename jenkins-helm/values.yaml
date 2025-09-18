@@ -1,0 +1,44 @@
+master:
+  image:
+    repository: jenkins/jenkins
+    tag: lts
+    pullPolicy: IfNotPresent
+
+  adminUser: admin
+  adminPassword: admin123  # Change this in production!
+
+  installPlugins:
+    - kubernetes:1.37.4
+    - workflow-aggregator:2.6
+    - configuration-as-code:1.55
+    - openshift-client:1.0.40
+
+  serviceAccount:
+    create: true
+    name: jenkins
+
+  service:
+    type: ClusterIP
+    port: 8080
+
+  jnlp:
+    service:
+      port: 50000
+
+  persistence:
+    enabled: false
+    # For production, use PVC instead of emptyDir
+
+  readinessProbe:
+    httpGet:
+      path: /login
+      port: 8080
+
+  livenessProbe:
+    httpGet:
+      path: /login
+      port: 8080
+
+  extraEnvVars:
+    - name: CASC_JENKINS_CONFIG
+      value: /var/jenkins_home/casc.yaml

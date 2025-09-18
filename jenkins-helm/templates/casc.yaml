@@ -1,0 +1,24 @@
+jenkins:
+  systemMessage: "Jenkins configured automatically by Helm chart"
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: admin
+          password: admin123
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
+  clouds:
+    - kubernetes:
+        name: kubernetes
+        namespace: jenkins
+        jenkinsUrl: "http://jenkins:8080"
+        serverUrl: "https://kubernetes.default.svc"
+        containerCap: 10
+        templates:
+          - name: jnlp-agent
+            label: jnlp
+            image: "jenkins/inbound-agent:latest"
+            workingDir: "/home/jenkins/agent"
+            args: "${computer.jnlpmac} ${computer.name}"
