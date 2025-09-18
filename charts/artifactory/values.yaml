@@ -225,7 +225,7 @@ aws:
 ## @param containerSecurityContext.seccompProfile.type Set container's Security Context seccomp profile
 ##
 containerSecurityContext:
-  enabled: true
+  enabled: false
   runAsNonRoot: true
   privileged: false
   allowPrivilegeEscalation: false
@@ -742,7 +742,7 @@ artifactory:
   ## @param artifactory.podSecurityContext.fsGroup Group ID for the pod
   ##
   podSecurityContext:
-    enabled: true
+    enabled: false
     runAsNonRoot: true
     runAsUser: 1030
     runAsGroup: 1030
@@ -1621,12 +1621,12 @@ nginx:
   replicaCount: 1
   minAvailable: 0
   podSecurityContext:
-    enabled: true
+    enabled: false
     runAsUser: 104
     runAsGroup: 107
     fsGroup: 107
   containerSecurityContext:
-    enabled: true
+    enabled: false
     runAsNonRoot: true
     privileged: false
     readOnlyRootFilesystem: false
@@ -1880,9 +1880,9 @@ postgresql:
     affinity: {}
     tolerations: []
   securityContext:
-    enabled: true
+    enabled: false
   containerSecurityContext:
-    enabled: true
+    enabled: false
 ## If NOT using the PostgreSQL in this chart (postgresql.enabled=false),
 ## specify custom database details here or leave empty and Artifactory will use embedded derby
 database:
@@ -2097,13 +2097,13 @@ rtfs:
     annotations: {}
     labels: {}
   podSecurityContext:
-    enabled: true
+    enabled: false
     runAsNonRoot: true
     runAsUser: 1030
     runAsGroup: 1030
     fsGroup: 1030
   containerSecurityContext:
-    enabled: true
+    enabled: false
     runAsNonRoot: true
     allowPrivilegeEscalation: false
     seccompProfile:
