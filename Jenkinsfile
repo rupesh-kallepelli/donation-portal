@@ -15,7 +15,7 @@ pipeline {
                             echo "Hello from a Kubernetes pod!"
                             sh 'whoami'
                             sh 'java -version'
-                            sh './donation-backend/api-gateway/mvw clean install -DskipTests'
+                            sh './donation-backend/api-gateway/mvnw clean install -DskipTests'
                         }
                     }
                 }
