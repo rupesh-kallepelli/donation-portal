@@ -16,8 +16,11 @@ pipeline {
                         dir('api-gateway') {
                             container('java') {
                                 script {
-                                    sh "chmod +x ${pwd()}/mvnw"
-                                    sh "${pwd()}/mvnw clean install -DskipTests"
+                                    configFileProvider([configFile(fileId: 'mvn_settings', variable: 'MVN_SETTINGS')]) {
+                                        sh "chmod +x ${pwd()}/mvnw"
+                                        sh "${pwd()}/mvnw clean install -s MVN_SETTINGS \
+                                                -DskipTests"
+                                    }
                                 }
                             }
                         }
