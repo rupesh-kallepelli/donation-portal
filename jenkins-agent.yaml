@@ -17,7 +17,8 @@ spec:
   - name: java
     image: openjdk:17.0.1-jdk-slim
     command: 
-      - cat
+      - "sleep"
+      - "infinity"
     imagePullPolicy: Always
   volumes:
   - name: workspace-volume
