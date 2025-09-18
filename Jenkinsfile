@@ -15,6 +15,7 @@ pipeline {
                             echo "Hello from a Kubernetes pod!"
                             sh 'whoami'
                             sh 'printenv'
+                            sh 'ls -lrt'
                             sh './api-gateway/mvnw clean install -DskipTests'
                         }
                     }
