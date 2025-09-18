@@ -10,7 +10,7 @@ pipeline {
         stage('Hello') {
             steps {
                 dir(env.WORKSPACE) {
-                    container('jnlp') {
+                    container('java') {
                         script {
                             echo "Hello from a Kubernetes pod!"
                             sh 'whoami'
