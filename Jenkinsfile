@@ -18,7 +18,7 @@ pipeline {
                                 script {
                                     configFileProvider([configFile(fileId: 'mvn_settings', variable: 'MVN_SETTINGS')]) {
                                         sh "chmod +x ${pwd()}/mvnw"
-                                        sh "${pwd()}/mvnw clean install -s MVN_SETTINGS \
+                                        sh "${pwd()}/mvnw clean install -s $MVN_SETTINGS \
                                                 -DskipTests"
                                     }
                                 }
