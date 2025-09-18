@@ -3,7 +3,7 @@ pipeline {
         kubernetes {
             label 'inline-agent'
             defaultContainer 'jnlp'
-            yaml "jenkins-agent.yaml"
+            yamlFile "jenkins-agent.yaml"
         }
     }
     stages {
