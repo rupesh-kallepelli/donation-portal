@@ -8,13 +8,15 @@ pipeline {
     }
     stages {
         stage('Hello') {
-            dir(env.WORKSPACE) {
-                container('java') {
-                    steps {
-                        echo "Hello from a Kubernetes pod!"
-                        sh 'whoami'
-                        sh 'java -version'
-                        sh './donation-backend/api-gateway/mvw clean install -DskipTests'
+            steps{
+                dir(env.WORKSPACE) {
+                    container('java') {
+                        steps {
+                            echo "Hello from a Kubernetes pod!"
+                            sh 'whoami'
+                            sh 'java -version'
+                            sh './donation-backend/api-gateway/mvw clean install -DskipTests'
+                        }
                     }
                 }
             }
