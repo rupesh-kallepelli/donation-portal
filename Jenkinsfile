@@ -17,7 +17,7 @@ pipeline {
                             container('java') {
                                 script {
                                     sh "chmod +x ${pwd()}/mvnw"
-                                    sh '${pwd()}/mvnw clean install -DskipTests'
+                                    sh "${pwd()}/mvnw clean install -DskipTests"
                                 }
                             }
                         }
