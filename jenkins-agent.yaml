@@ -14,7 +14,8 @@ spec:
       mountPath: /home/jenkins/agent
   - name: java
     image: openjdk:17-slim
-    commad: cat
+    commad: 
+      - cat
   volumes:
   - name: workspace-volume
     emptyDir: {}
