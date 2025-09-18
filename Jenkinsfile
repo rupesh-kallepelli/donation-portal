@@ -8,10 +8,10 @@ pipeline {
     }
     stages {
         stage('Hello') {
-            steps{
+            steps {
                 dir(env.WORKSPACE) {
                     container('java') {
-                        steps {
+                        script {
                             echo "Hello from a Kubernetes pod!"
                             sh 'whoami'
                             sh 'java -version'
