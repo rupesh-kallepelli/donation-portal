@@ -16,7 +16,7 @@ pipeline {
                             sh 'whoami'
                             sh 'printenv'
                             sh 'ls -lrt'
-                            sh './api-gateway/mvnw clean install -DskipTests'
+                            sh './donation-backend/api-gateway/mvnw clean install -DskipTests'
                         }
                     }
                 }
