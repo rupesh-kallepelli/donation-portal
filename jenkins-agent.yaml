@@ -7,19 +7,38 @@ metadata:
 spec:
   ttlSecondsAfterFinished: 3600
   restartPolicy: Never
+  runAsUser: 0
   containers:
-  - name: jnlp
-    image: jenkins/inbound-agent:latest
-    tty: true
-    volumeMounts:
-    - name: workspace-volume
-      mountPath: /home/jenkins/agent
-  - name: java
-    image: openjdk:17.0.1-jdk-slim
-    command: 
-      - "sleep"
-      - "infinity"
-    imagePullPolicy: Always
+    - name: jnlp
+      image: jenkins/inbound-agent:4.13.3-1
+      tty: true
+      resources:
+        requests:
+          memory: "256Mi"
+          cpu: "250m"
+          ephemeral-storage: "1Gi"
+        limits:
+          memory: "512Mi"
+          cpu: "500m"
+          ephemeral-storage: "2Gi"
+      volumeMounts:
+        - name: workspace-volume
+          mountPath: /home/jenkins/agent
+    - name: java
+      image: openjdk:17.0.1-jdk-slim
+      command:
+        - "sleep"
+        - "infinity"
+      imagePullPolicy: Always
+      resources:
+        requests:
+          memory: "256Mi"
+          cpu: "250m"
+          ephemeral-storage: "1Gi"
+        limits:
+          memory: "512Mi"
+          cpu: "500m"
+          ephemeral-storage: "2Gi"
   volumes:
-  - name: workspace-volume
-    emptyDir: {}
+    - name: workspace-volume
+      emptyDir: {}
