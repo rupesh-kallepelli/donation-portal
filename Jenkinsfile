@@ -1,3 +1,5 @@
+#!/bin/bash groovy
+
 pipeline {
     agent {
         kubernetes {
@@ -10,12 +12,17 @@ pipeline {
         stage('Hello') {
             steps {
                 dir(env.WORKSPACE) {
-                    container('jnlp') {
-                        script {
-                            echo "Hello from a Kubernetes pod!"
-                            sh 'whoami'
-                            sh 'printenv'
-                            //sh './donation-backend/api-gateway/mvnw clean install -DskipTests'
+                    dir('donation-backend') {
+                        dir('api-gateway') {
+                            container('java') {
+                                script {
+                                    configFileProvider([configFile(fileId: 'mvn_settings', variable: 'MVN_SETTINGS')]) {
+                                        sh "chmod +x ${pwd()}/mvnw"
+                                        sh "${pwd()}/mvnw clean install -s $MVN_SETTINGS \
+                                                -DskipTests"
+                                    }
+                                }
+                            }
                         }
                     }
                 }
