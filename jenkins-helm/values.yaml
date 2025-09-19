@@ -11,6 +11,10 @@ master:
     - workflow-aggregator:2.6
     - configuration-as-code:1.55
     - openshift-client:1.0.40
+    - config-file-provider:latest
+    - kubernetes:latest
+    - configuration-as-code:latest
+    - workflow-aggregator:latest 
   serviceAccount:
     create: true
     name: jenkins

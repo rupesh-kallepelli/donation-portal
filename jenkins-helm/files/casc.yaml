@@ -7,11 +7,11 @@ jenkins:
         - id: admin
           password: admin123
   authorizationStrategy:
-    loggedInUsersCanDoAnything:w
+    loggedInUsersCanDoAnything:
       allowAnonymousRead: false
   clouds:
     - kubernetes:
-        name: kubernetes
+        name: openshift
         namespace: jenkins
         jenkinsUrl: "http://jenkins:8080"
         serverUrl: "https://kubernetes.default.svc"
