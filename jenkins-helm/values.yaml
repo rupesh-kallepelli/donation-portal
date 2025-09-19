@@ -1,5 +1,5 @@
 namespace: kallepelli-rupesh-dev
-master:
+controller:
   image:
     repository: jenkins/jenkins
     tag: lts
@@ -12,9 +12,8 @@ master:
     - configuration-as-code:1.55
     - openshift-client:1.0.40
     - config-file-provider:latest
-    - kubernetes:latest
     - configuration-as-code:latest
-    - workflow-aggregator:latest 
+    - workflow-aggregator:latest
   serviceAccount:
     create: true
     name: jenkins
