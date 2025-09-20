@@ -34,6 +34,7 @@ pipeline {
                                         -Dnamespace=${env.NAME_SPACE}"
                                         sh "mkdir -p /mnt/artifacts/tmp-context"
                                         sh "cp /mnt/artifacts/app.jar /mnt/artifacts/tmp-context/"
+                                        sh "cp build/build-template/Dockerfile /mnt/artifacts/tmp-context/"
                                     }
                                 }
                             }
