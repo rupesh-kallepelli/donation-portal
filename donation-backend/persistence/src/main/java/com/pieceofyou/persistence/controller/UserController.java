@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/user")
 @Slf4j
 public class UserController {
     private UserService userService;

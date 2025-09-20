@@ -25,10 +25,14 @@ spring:
               uri: http://user-service:8080
               predicates:
                 - Path=/users/**
+              filters:
+                - StripPrefix=1
             - id: persistence-service
               uri: http://persistence:8080
               predicates:
                 - Path=/persistence/**
+              filters:
+                - StripPrefix=1
 springdoc:
   api-docs:
     enabled: true
