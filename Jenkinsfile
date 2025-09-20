@@ -9,7 +9,7 @@ pipeline {
         }
     }
     parameters {
-        string(name: 'APP_NAME', defaultValue: 'api-gateway', description: 'Application Name')
+        choice(name: 'APP_NAME', choices: ['api-gateway', 'user-service', 'persistence'], description: 'Select the application to build and deploy')
     }
     environment {
        OC_SERVER="https://api.rm1.0a51.p1.openshiftapps.com:6443"
@@ -18,11 +18,33 @@ pipeline {
        APP_NAME="${params.APP_NAME}"
     }
     stages {
-        stage('local-install') {
+        stage('build-model') {
             steps {
                 dir(env.WORKSPACE) {
                     dir('donation-backend') {
-                        dir('api-gateway') {
+                        dir('model-client') {
+                            container('java') {
+                                script {
+                                    configFileProvider([configFile(fileId: 'mvn_settings', variable: 'MVN_SETTINGS')]) {
+                                        sh "chmod +x ${pwd()}/mvnw"
+                                        sh "${pwd()}/mvnw clean install -B -s $MVN_SETTINGS \
+                                        -DappVersion=${env.BUILD_ID} \
+                                        -DappName=${env.APP_NAME} \
+                                        -DregistryUrl=${env.REGISTRY_URL} \
+                                        -Dnamespace=${env.NAME_SPACE}"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        stage('build-app') {
+            steps {
+                dir(env.WORKSPACE) {
+                    dir('donation-backend') {
+                        dir(env.APP_NAME) {
                             container('java') {
                                 script {
                                     configFileProvider([configFile(fileId: 'mvn_settings', variable: 'MVN_SETTINGS')]) {
@@ -48,7 +70,7 @@ pipeline {
             steps {
                 dir(env.WORKSPACE) {
                     dir('donation-backend') {
-                        dir('api-gateway') {
+                        dir(env.APP_NAME) {
                             container('oc-tools') {
                                 script {
                                    ocLogin('ocp-token', env.OC_SERVER, env.NAME_SPACE)
@@ -73,11 +95,11 @@ pipeline {
                 }
             }
         }
-        stage('deploy-image') {
+        stage('deploy') {
             steps {
                 dir(env.WORKSPACE) {
                     dir('donation-backend') {
-                        dir('api-gateway') {
+                        dir(env.APP_NAME) {
                             container('oc-tools') {
                                 script {
                                    ocLogin('ocp-token', env.OC_SERVER, env.NAME_SPACE)
