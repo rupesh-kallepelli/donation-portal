@@ -24,6 +24,9 @@ spec:
       volumeMounts:
         - name: workspace-volume
           mountPath: /home/jenkins/agent
+      env:
+        - name: HOME
+          value: /home/jenkins/agent
     - name: java
       image: openjdk:17.0.1-jdk-slim
       command:
