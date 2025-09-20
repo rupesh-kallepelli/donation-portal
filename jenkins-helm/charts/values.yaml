@@ -120,7 +120,9 @@ controller:
   #     cpu: "2000m"
   #     memory: "4096Mi"
   # -- Environment variable sources for Init Container
-  initContainerEnvFrom: []
+  initContainerEnvFrom: 
+     - name: JENKINS_PLUGIN_CACHE_DIR
+       value: /var/jenkins_home/pluginCache
   # useful for i.e., http_proxy
   # -- Environment variables for Init Container
   initContainerEnv: []
