@@ -29,6 +29,7 @@ spec:
       env:
         - name: HOME
           value: /home/jenkins/agent
+
     - name: java
       image: openjdk:17.0.1-jdk-slim
       command:
@@ -47,6 +48,23 @@ spec:
       env:
         - name: HOME
           value: /home/jenkins/agent
+      volumeMounts:
+        - name: workspace-volume
+          mountPath: /home/jenkins/agent
+
+    - name: oc-tools
+      image: image-registry.openshift-image-registry.svc:5000/kallepelli-rupesh-dev/oc-tools
+      command:
+        - "sleep"
+        - "infinity"
+      tty: true
+      env:
+        - name: HOME
+          value: /home/jenkins/agent
+      volumeMounts:
+        - name: workspace-volume
+          mountPath: /home/jenkins/agent
+
   volumes:
     - name: workspace-volume
       emptyDir: {}
