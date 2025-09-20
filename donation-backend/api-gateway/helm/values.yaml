@@ -5,7 +5,7 @@ registryUrl: ${registryUrl}
 replicaCount: 1
 
 image:
-  repository: "${registryUrl}/${appName}"
+  repository: "${registryUrl}/${namespace}/${appName}"
   tag: "${appVersion}"
   pullPolicy: IfNotPresent
 
