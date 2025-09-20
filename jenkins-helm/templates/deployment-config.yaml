@@ -48,7 +48,8 @@ spec:
             - name: jenkins-home
               mountPath: /var/jenkins_home
             - name: casc-config
-              mountPath: /var/jenkins_home/casc
+              mountPath: /var/jenkins_home/casc.yaml
+              subPath: casc.yaml
             - name: plugins-list
               mountPath: /usr/share/jenkins/ref/
               subPath: plugins.txt
