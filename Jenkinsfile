@@ -15,6 +15,7 @@ pipeline {
        OC_SERVER="https://api.rm1.0a51.p1.openshiftapps.com:6443"
        NAME_SPACE="kallepelli-rupesh-dev"
        REGISTRY_URL="image-registry.openshift-image-registry.svc:5000"
+       APP_NAME="${params.APP_NAME}"
     }
     stages {
         stage('local-install') {
