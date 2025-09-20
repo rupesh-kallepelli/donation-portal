@@ -90,11 +90,12 @@ spec:
         fsGroup: {{ .Values.controller.fsGroup }}
         runAsNonRoot: true
       {{- end }}
-       */}}
+       
       {{- if .Values.controller.securityContextCapabilities }}
         capabilities:
           {{- toYaml .Values.controller.securityContextCapabilities | nindent 10 }}
       {{- end }}
+      */}}
     {{- end }}
   {{- end }}
 {{- end }}
