@@ -8,6 +8,8 @@ spec:
   ttlSecondsAfterFinished: 3600
   restartPolicy: Never
   runAsUser: 0
+  runAsGroup: 0
+  fsGroup: 0
   containers:
     - name: jnlp
       image: jenkins/inbound-agent:jdk17
