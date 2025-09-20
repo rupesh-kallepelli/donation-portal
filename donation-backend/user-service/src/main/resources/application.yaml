@@ -3,6 +3,11 @@ spring:
         name: user-service
 server:
     port: 8080
+springdoc:
+  api-docs:
+    servers:
+      - url: /users
+
 persistence:
   service:
     url: http://persistence:8080

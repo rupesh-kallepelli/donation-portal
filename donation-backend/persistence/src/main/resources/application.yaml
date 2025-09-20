@@ -13,3 +13,7 @@ spring:
     database-platform: ${DB_DIALECT}
 server:
   port: 8080
+springdoc:
+  api-docs:
+    servers:
+      - url: /users
