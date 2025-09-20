@@ -1,0 +1,19 @@
+{{- if .Values.route.enabled }}
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  namespace: {{ .Values.namespace }}
+  name: {{ include "fullname" . }}  # Use the fullname helper to generate name
+  labels:
+    app: {{ .Values.appName }}  # Use appName directly from values.yaml
+    release: {{ .Release.Name }}  # Use the release name
+    heritage: {{ .Release.Service }}  # Helm's release service name (e.g., Helm)
+spec:
+  to:
+    kind: Service
+    name: {{ include "fullname" . }}  # Fullname is used for the service name
+  port:
+    targetPort: http  # Ensure the target port is correct (can be dynamic if needed)
+  tls:
+    termination: edge
+{{- end }}

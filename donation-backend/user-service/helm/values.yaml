@@ -1,0 +1,23 @@
+appName: ${appName}
+appVersion: ${appVersion}
+namespace: ${namespace}
+registryUrl: ${registryUrl}
+replicaCount: 1
+
+image:
+  repository: "${registryUrl}/${namespace}/${appName}"
+  tag: "${appVersion}"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8080
+
+route:
+  enabled: false
+
+javaArgs:
+  - "-Xms512m"
+  - "-Xmx1024m"
+  - "-Dspring.profiles.active=prod"
+  - "--server.address=0.0.0.0"

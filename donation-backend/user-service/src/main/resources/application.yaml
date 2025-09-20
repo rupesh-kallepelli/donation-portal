@@ -3,5 +3,6 @@ spring:
         name: user-service
 server:
     port: 8081
-userservice:
-    url: http://localhost:8090
+persistence:
+  service:
+    url: http://persistence:8080
