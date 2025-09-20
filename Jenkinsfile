@@ -72,6 +72,22 @@ pipeline {
                 }
             }
         }
+        stage('deploy-image') {
+            steps {
+                dir(env.WORKSPACE) {
+                    dir('donation-backend') {
+                        dir('api-gateway') {
+                            container('oc-tools') {
+                                script {
+                                   ocLogin('ocp-token', env.OC_SERVER, env.NAME_SPACE)
+                                   sh "helm upgrade --install ${env.APP_NAME} ./build "
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 def ocLogin(String credentialsId, String ocServer, String namespace) {
