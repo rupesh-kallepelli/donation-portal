@@ -1,6 +1,7 @@
 appName: ${appName}
 appVersion: ${appVersion}
-
+namespace: ${namespace}
+registryUrl: ${registryUrl}
 replicaCount: 1
 
 image:

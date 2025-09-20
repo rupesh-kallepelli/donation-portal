@@ -62,7 +62,7 @@ spec:
         - name: artifact-storage
           mountPath: /mnt/artifacts
     - name: oc-tools
-      image: image-registry.openshift-image-registry.svc:5000/kallepelli-rupesh-dev/oc-tools
+      image: image-registry.openshift-image-registry.svc:5000/kallepelli-rupesh-dev/oc-tools:latest
       command:
         - "sleep"
         - "infinity"
