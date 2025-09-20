@@ -28,7 +28,7 @@ spec:
             - name: JENKINS_ADMIN_PASSWORD
               value: "{{ .Values.master.adminPassword }}"
             - name: CASC_JENKINS_CONFIG
-              value: "{{ index .Values.master.extraEnvVars 0 "value" }}"
+              value: /var/jenkins_home/casc-config/casc.yaml
           ports:
             - containerPort: 8080
             - containerPort: 50000
@@ -48,24 +48,16 @@ spec:
             - name: jenkins-home
               mountPath: /var/jenkins_home
             - name: casc-config
-              mountPath: /var/jenkins_home/casc.yaml
-              subPath: casc.yaml
+              mountPath: /var/jenkins_home/casc-config
             - name: plugins-list
-              mountPath: /usr/share/jenkins/ref/
-              subPath: plugins.txt
+              mountPath: /usr/share/jenkins/ref/plugins
       volumes:
         - name: jenkins-home
-          persistentVolumeClaim:   
+          persistentVolumeClaim:
             claimName: jenkins-pvc
         - name: casc-config
           configMap:
             name: jenkins-casc
-            items:
-              - key: casc.yaml
-                path: casc.yaml
         - name: plugins-list
-          configMap: 
+          configMap:
             name: plugins-list
-            items:
-              - key: plugins.txt
-                path: plugins.txt
