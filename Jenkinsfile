@@ -80,6 +80,7 @@ pipeline {
                             container('oc-tools') {
                                 script {
                                    ocLogin('ocp-token', env.OC_SERVER, env.NAME_SPACE)
+                                   sh "helm lint ./build "
                                    sh "helm upgrade --install ${env.APP_NAME} ./build "
                                 }
                             }
