@@ -10,7 +10,6 @@ pipeline {
     }
     environment {
        OC_SERVER="https://api.rm1.0a51.p1.openshiftapps.com:6443"
-       OC_TOKEN=credentials('ocp-token')
     }
     stages {
         stage('local-install') {
@@ -39,7 +38,9 @@ pipeline {
                         dir('api-gateway') {
                             container('oc-tools') {
                                 script {
-                                    sh 'oc login --token=$OC_TOKEN --server=$OC_SERVER --insecure-skip-tls-verify=true'
+                                    withCredentials([string(credentialsId: 'ocp-token', variable: 'OC_TOKEN')]) {
+                                        sh 'oc login --token=$OC_TOKEN --server=$OC_SERVER --insecure-skip-tls-verify=true'
+                                    }
                                 }
                             }
                         }
