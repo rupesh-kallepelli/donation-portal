@@ -10,7 +10,7 @@ spec:
   runAsUser: 0
   containers:
     - name: jnlp
-      image: jenkins/inbound-agent:3107.v665000b_51092-1
+      image: jenkins/inbound-agent:jdk17
       tty: true
       resources:
         requests:
