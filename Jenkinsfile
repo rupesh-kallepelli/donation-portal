@@ -33,7 +33,7 @@ pipeline {
                                         -DregistryUrl=${env.REGISTRY_URL} \
                                         -Dnamespace=${env.NAME_SPACE}"
                                         sh "mkdir -p /mnt/artifacts/tmp-context"
-                                        sh "cp /mnt/artifacts/app.jar /mnt/artifacts/tmp-context/"
+                                        sh "cp target/*.jar /mnt/artifacts/tmp-context/app.jar"
                                         sh "cp build/build-template/Dockerfile /mnt/artifacts/tmp-context/"
                                     }
                                 }
