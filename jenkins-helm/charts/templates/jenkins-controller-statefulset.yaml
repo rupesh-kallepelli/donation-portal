@@ -84,11 +84,11 @@ spec:
         fsGroup: 1000
         runAsNonRoot: true
     */}}
-        runAsUser: {{ default 0 .Values.controller.runAsUser }}
+       {{/* runAsUser: {{ default 0 .Values.controller.runAsUser }}
     {{- if and (.Values.controller.runAsUser) (.Values.controller.fsGroup) }}
       {{- if not (eq (int .Values.controller.runAsUser) 0) }}
         fsGroup: {{ .Values.controller.fsGroup }}
-        runAsNonRoot: true
+        runAsNonRoot: true*/}}
       {{- end }}
       {{- if .Values.controller.securityContextCapabilities }}
         capabilities:
