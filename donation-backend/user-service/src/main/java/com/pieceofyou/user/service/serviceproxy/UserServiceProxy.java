@@ -18,7 +18,7 @@ public class UserServiceProxy {
 
     public Mono<String> registerUser(UserDTO userDTO) {
         return userServiceProxyClient.post()
-                .uri("/users/register")
+                .uri("/api/user/register")
                 .bodyValue(userDTO)
                 .retrieve()
                 .onStatus(HttpStatusCode::is4xxClientError, clientResponse -> {
