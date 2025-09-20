@@ -47,8 +47,15 @@ spec:
           volumeMounts:
             - name: jenkins-home
               mountPath: /var/jenkins_home
+            - name: casc-config
+              mountPath: /var/jenkins_home/casc.yaml
       volumes:
         - name: jenkins-home
           persistentVolumeClaim:   
             claimName: jenkins-pvc
-      
+        - name: casc-config
+          configMap:
+            name: jenkins-casc
+            items:
+              - key: casc.yaml
+                path: casc.yaml
