@@ -27,6 +27,8 @@ spring:
                 - Path=/users/**
               filters:
                 - StripPrefix=1
+                - RewritePath=/users/api/user/(?<remaining>.*), /users/api/users/${remaining}  # First rewrite
+                - RewritePath=/api/user/(?<remaining>.*), /users/api/users/${remaining}  # Another rewrite if needed
             - id: persistence-service
               uri: http://persistence:8080
               predicates:
