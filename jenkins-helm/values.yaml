@@ -1,5 +1,5 @@
 namespace: kallepelli-rupesh-dev
-controller:
+master:
   image:
     repository: jenkins/jenkins
     tag: lts
