@@ -18,9 +18,8 @@ pipeline {
                                 script {
                                     configFileProvider([configFile(fileId: 'mvn_settings', variable: 'MVN_SETTINGS')]) {
                                         sh "chmod +x ${pwd()}/mvnw"
-                                        sh "${pwd()}/mvnw clean install -s $MVN_SETTINGS \
-                                                -Dmaven.repo.local=\$WORKSPACE/.m2 \
-                                                -DskipTests"
+                                        sh "${pwd()}/mvnw clean install -s $MVN_SETTINGS -DskipTests"
+                                        archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
                                     }
                                 }
                             }
