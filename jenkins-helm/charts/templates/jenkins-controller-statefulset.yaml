@@ -84,20 +84,17 @@ spec:
         fsGroup: 1000
         runAsNonRoot: true
     */}}
-     {{/*     runAsUser: {{ default 0 .Values.controller.runAsUser }}
+        runAsUser: {{ default 0 .Values.controller.runAsUser }}
     {{- if and (.Values.controller.runAsUser) (.Values.controller.fsGroup) }}
       {{- if not (eq (int .Values.controller.runAsUser) 0) }}
         fsGroup: {{ .Values.controller.fsGroup }}
         runAsNonRoot: true
       {{- end }}
-       
       {{- if .Values.controller.securityContextCapabilities }}
         capabilities:
           {{- toYaml .Values.controller.securityContextCapabilities | nindent 10 }}
       {{- end }}
-      
     {{- end }}
-    */}}
   {{- end }}
 {{- end }}
       serviceAccountName: "{{ template "jenkins.serviceAccountName" . }}"
@@ -174,9 +171,9 @@ spec:
         - name: jenkins
           image: "{{ .Values.controller.image.registry }}/{{ .Values.controller.image.repository }}:{{- include "controller.image.tag" . -}}"
           imagePullPolicy: "{{ .Values.controller.image.pullPolicy }}"
-          {{/*{{- if .Values.controller.containerSecurityContext }}
+          {{- if .Values.controller.containerSecurityContext }}
           securityContext: {{- toYaml .Values.controller.containerSecurityContext | nindent 12 }}
-          {{- end }}*/}}
+          {{- end }}
           {{- if .Values.controller.overrideArgs }}
           args: [
             {{- range $overrideArg := .Values.controller.overrideArgs }}
