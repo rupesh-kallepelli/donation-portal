@@ -21,7 +21,6 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.service.port }}
-          command: ["java", "-jar", "/app/{{ .Values.appName }}.jar"]
           args:
             {{- range .Values.javaArgs }}
             - {{ . | quote }}
