@@ -21,7 +21,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - secretRef:
-              name: db-credentials
+                name: db-credentials
           ports:
             - containerPort: {{ .Values.service.port }}
           args:
