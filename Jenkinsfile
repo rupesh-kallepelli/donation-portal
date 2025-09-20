@@ -35,6 +35,7 @@ pipeline {
                                         sh "mkdir -p /mnt/artifacts/tmp-context"
                                         sh "cp target/*.jar /mnt/artifacts/tmp-context/app.jar"
                                         sh "cp build/build-template/Dockerfile /mnt/artifacts/tmp-context/"
+                                        sh "ls -al /mnt/artifacts/tmp-context"
                                     }
                                 }
                             }
