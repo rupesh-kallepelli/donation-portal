@@ -95,8 +95,9 @@ spec:
         capabilities:
           {{- toYaml .Values.controller.securityContextCapabilities | nindent 10 }}
       {{- end }}
-      */}}
+      
     {{- end }}
+    */}}
   {{- end }}
 {{- end }}
       serviceAccountName: "{{ template "jenkins.serviceAccountName" . }}"
