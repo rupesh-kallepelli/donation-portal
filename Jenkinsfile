@@ -32,8 +32,8 @@ pipeline {
                                         -DappName=${env.APP_NAME} \
                                         -DregistryUrl=${env.REGISTRY_URL} \
                                         -Dnamespace=${env.NAME_SPACE}"
-                                        sh "mv target/*.jar target/app.jar"
-                                        sh 'cp target/app.jar /mnt/artifacts/'
+                                        sh "mkdir -p /mnt/artifacts/tmp-context"
+                                        sh "cp /mnt/artifacts/app.jar /mnt/artifacts/tmp-context/"
                                     }
                                 }
                             }
@@ -51,13 +51,18 @@ pipeline {
                                 script {
                                    ocLogin('ocp-token', env.OC_SERVER, env.NAME_SPACE)
                                    try{
+                                        sh "oc create -f build/build-template/image-stream.yaml -n ${NAME_SPACE}"
+                                   } catch(err){
+                                        echo "Image stream already exists"
+                                   }
+                                   try{
                                         sh "oc create -f build/build-template/image-build.yaml -n ${NAME_SPACE}"
                                    } catch(err){
                                         echo "Build config already exists"
                                          sh "oc replace -f build/build-template/image-build.yaml -n ${NAME_SPACE}"
                                     }finally{
                                         echo "Proceeding to build image"
-                                        sh "oc start-build ${env.APP_NAME}-build --from-file=/mnt/artifacts/app.jar -n ${NAME_SPACE} --follow"
+                                        sh "oc start-build ${env.APP_NAME}-build --from-dir=/mnt/artifacts/tmp-context -n ${NAME_SPACE} --follow"
                                     }
                                 }
                             }

@@ -1,7 +1,7 @@
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
-  name: my-docker-build
+  name: oc-tools-build
 spec:
   source:
     type: Git
