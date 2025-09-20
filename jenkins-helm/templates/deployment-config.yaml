@@ -49,6 +49,9 @@ spec:
               mountPath: /var/jenkins_home
             - name: casc-config
               mountPath: /var/jenkins_home/casc.yaml
+            - name: plugins-list
+              mountPath: /usr/share/jenkins/ref/plugins.txt
+              subPath: plugins.txt
       volumes:
         - name: jenkins-home
           persistentVolumeClaim:   
@@ -59,3 +62,9 @@ spec:
             items:
               - key: casc.yaml
                 path: casc.yaml
+        - name: plugins-list
+          configMap: 
+            name: plugins-list
+            items:
+              - key: plugins.txt
+                path: plugins.txt

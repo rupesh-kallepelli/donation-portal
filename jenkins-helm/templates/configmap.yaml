@@ -5,3 +5,11 @@ metadata:
 data:
   casc.yaml: |-
 {{ .Files.Get "files/casc.yaml" | indent 4 }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: plugins-list
+data:
+  plugins.txt: |-
+{{ .Files.Get "files/plugins.txt" | indent 4 }}

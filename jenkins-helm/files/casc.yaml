@@ -19,6 +19,6 @@ jenkins:
         templates:
           - name: jnlp-agent
             label: jnlp
-            image: "jenkins/inbound-agent:3107.v665000b_51092"
+            image: "jenkins/inbound-agent:latest"
             workingDir: "/home/jenkins/agent"
             args: "${computer.jnlpmac} ${computer.name}"

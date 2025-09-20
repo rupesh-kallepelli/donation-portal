@@ -1,0 +1,7 @@
+kubernetes:1.37.4
+workflow-aggregator:2.6
+configuration-as-code:1.55
+openshift-client:1.0.40
+config-file-provider:latest
+configuration-as-code:latest
+workflow-aggregator:latest
