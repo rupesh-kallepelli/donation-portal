@@ -1,0 +1,4 @@
+javaArgs:
+  - "-Xms512m"
+  - "-Xmx1024m"
+  - "-Dspring.profiles.active=prod"

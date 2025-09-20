@@ -1,0 +1,6 @@
+apiVersion: v2
+name: "{{ .Values.appName }}"
+description: A Helm chart for deploying {{ .Values.appName }}
+type: application
+version: "{{ .Values.appVersion }}"
+appVersion: "{{ .Values.appVersion }}"

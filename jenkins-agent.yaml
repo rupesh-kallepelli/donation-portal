@@ -1,15 +1,22 @@
 apiVersion: v1
 kind: Pod
 metadata:
+  name: jenkins-agent
   labels:
     jenkins-agent: jenkins-agent
-  name: jenkins-agent
 spec:
   ttlSecondsAfterFinished: 3600
   restartPolicy: Never
   runAsUser: 0
   runAsGroup: 0
   fsGroup: 0
+  automountServiceAccountToken: false
+  volumes:
+    - name: workspace-volume
+      emptyDir: {}
+    - name: artifact-storage
+      persistentVolumeClaim:
+        claimName: jenkins-artifact-pvc # 🔄 Must be created first
   containers:
     - name: jnlp
       image: jenkins/inbound-agent:jdk17
@@ -23,13 +30,14 @@ spec:
           memory: "512Mi"
           cpu: "500m"
           ephemeral-storage: "2Gi"
-      volumeMounts:
-        - name: workspace-volume
-          mountPath: /home/jenkins/agent
       env:
         - name: HOME
           value: /home/jenkins/agent
-
+      volumeMounts:
+        - name: workspace-volume
+          mountPath: /home/jenkins/agent
+        - name: artifact-storage
+          mountPath: /mnt/artifacts
     - name: java
       image: openjdk:17.0.1-jdk-slim
       command:
@@ -51,7 +59,8 @@ spec:
       volumeMounts:
         - name: workspace-volume
           mountPath: /home/jenkins/agent
-
+        - name: artifact-storage
+          mountPath: /mnt/artifacts
     - name: oc-tools
       image: image-registry.openshift-image-registry.svc:5000/kallepelli-rupesh-dev/oc-tools
       command:
@@ -64,7 +73,19 @@ spec:
       volumeMounts:
         - name: workspace-volume
           mountPath: /home/jenkins/agent
-
-  volumes:
+        - name: artifact-storage
+          mountPath: /mnt/artifacts
+      resources:
+        requests:
+          memory: "256Mi"
+          cpu: "250m"
+          ephemeral-storage: "1Gi"
+        limits:
+          memory: "512Mi"
+          cpu: "500m"
+          ephemeral-storage: "2Gi"
+  volumeMounts:
     - name: workspace-volume
-      emptyDir: {}
+      mountPath: /home/jenkins/agent
+    - name: artifact-storage
+      mountPath: /mnt/artifacts

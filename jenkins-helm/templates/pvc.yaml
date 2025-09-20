@@ -10,6 +10,18 @@ spec:
     requests:
       storage: 10Gi
     storageClassName: "gp3"
-    volumeName: jenkins-pv
-    volumeMode: Filesystem
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: {{.Values.namespace}}
+  name: jenkins-artifact-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+  storageClassName: gp3
+
     

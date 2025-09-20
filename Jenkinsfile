@@ -8,8 +8,12 @@ pipeline {
             yamlFile "jenkins-agent.yaml"
         }
     }
+    environment {
+       OC_SERVER="https://api.rm1.0a51.p1.openshiftapps.com:6443"
+       OC_TOKEN=credentials('ocp-token')
+    }
     stages {
-        stage('Hello') {
+        stage('local-install') {
             steps {
                 dir(env.WORKSPACE) {
                     dir('donation-backend') {
@@ -19,8 +23,23 @@ pipeline {
                                     configFileProvider([configFile(fileId: 'mvn_settings', variable: 'MVN_SETTINGS')]) {
                                         sh "chmod +x ${pwd()}/mvnw"
                                         sh "${pwd()}/mvnw clean install -s $MVN_SETTINGS -DskipTests"
-                                        archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+                                        sh 'cp target/*.jar /mnt/artifacts/'
                                     }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        stage('build-image') {
+            steps {
+                dir(env.WORKSPACE) {
+                    dir('donation-backend') {
+                        dir('api-gateway') {
+                            container('oc-tools') {
+                                script {
+                                    sh 'oc login --token=$OC_TOKEN --server=$OC_SERVER --insecure-skip-tls-verify=true'
                                 }
                             }
                         }
