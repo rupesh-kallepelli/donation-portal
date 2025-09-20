@@ -19,4 +19,4 @@ spec:
   output:
     to:
       kind: ImageStreamTag
-      name: ${appName}:${appVersion}
+      name: "${appName}:${appVersion}"
