@@ -1,3 +1,3 @@
 {{- define "fullname" -}}
-{{ .Values.appName }}
+{{ .Release.Name }}-{{ .Values.appName }}
 {{- end -}}

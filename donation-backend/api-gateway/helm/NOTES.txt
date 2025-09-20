@@ -1,0 +1,3 @@
+Your application has been deployed!
+
+Service URL: http://{{ include "my-java-app.fullname" . }}:{{ .Values.service.port }}
