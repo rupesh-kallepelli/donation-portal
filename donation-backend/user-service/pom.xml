@@ -103,7 +103,55 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.2.0</version>
+				<executions>
+					<execution>
+						<id>copy-filtered-helm</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<useDefaultDelimiters>true</useDefaultDelimiters>
+							<outputDirectory>${project.basedir}/build</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.basedir}/helm</directory>
+									<targetPath>${project.basedir}/build</targetPath>
+									<filtering>true</filtering>
+								</resource>
+								<resource>
+									<directory>${project.basedir}/src/main/resources</directory>
+									<targetPath>${project.build.directory}/classes</targetPath>
+								</resource>
+								<resource>
+									<directory>${project.basedir}/src/test/resources</directory>
+									<targetPath>${project.build.directory}/test-classes</targetPath>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>3.1.0</version>
+					<configuration>
+						<filesets>
+							<fileset>
+								<directory>${project.basedir}/build</directory>
+							</fileset>
+						</filesets>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 </project>
