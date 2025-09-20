@@ -26,7 +26,7 @@ spring:
               predicates:
                 - Path=/users/**
             - id: persistence-service
-              uri: http://persistence-service:8080
+              uri: http://persistence:8080
               predicates:
                 - Path=/persistence/**
 springdoc:
@@ -35,8 +35,8 @@ springdoc:
   swagger-ui:
     urls:
       - name: user-service
-        url: http://user-service:8080/v3/api-docs
+        url: /users/v3/api-docs
       - name: persistence-service
-        url: http://persistence-service:8080/v3/api-docs
+        url: /persistence/v3/api-docs
 server:
   port: 8080
