@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import axios from "axios";
 import AppBackground from "../../components/AppBackground";
 import Navigation from "../../components/Navigation";
 import './Registration.css';
 import { countryCodeExtensions } from "../../consts";
+import apiGateway from "../../config/axiosconfig";
+import { isValidEmail, isValidPassword } from "../../utils/form-validation-util";
 
 
 
@@ -24,18 +25,26 @@ const RegistrationPage: React.FC = () => {
 
     const validate = () => {
         const newErrors: { [key: string]: string } = {};
+        //validating user name
         if (!form.name.trim()) newErrors.name = "Please enter your name.";
+        //validating email
         if (!form.email.trim()) newErrors.email = "Please enter your email address.";
-        else if (!/^\S+@\S+\.\S+$/.test(form.email)) newErrors.email = "Please enter a valid email address.";
+        else if (!isValidEmail(form.email)) newErrors.email = "Please enter a valid email address.";
+        //validating mobile ext number
         if (!form.mobileExt.trim()) newErrors.mobileExt = "Please select your mobile extension.";
         else if (!countryCodeExtensions.some(e => e.dial_code === form.mobileExt)) newErrors.mobileExt = "Invalid extension.";
+        //validating mobile number
         if (!form.mobile.trim()) newErrors.mobile = "Please enter your mobile number.";
         else if (!/^\d{10}$/.test(form.mobile)) newErrors.mobile = "Please enter a valid 10-digit mobile number.";
+        //validating password
         if (!form.password) newErrors.password = "Please enter a password.";
-        else if (form.password.length < 6) newErrors.password = "Password must be at least 6 characters.";
+        else if (!isValidPassword(form.password)) newErrors.password = "At least 8 characters, with 1 uppercase, 1 lowercase, 1 number, and 1 special character (@ $ ! % * ? &)";
+        //validating confirm password
         if (!form.confirmPassword) newErrors.confirmPassword = "Please confirm your password.";
         else if (form.password !== form.confirmPassword) newErrors.confirmPassword = "Passwords do not match.";
+        //validating blood type 
         if (!form.bloodType) newErrors.bloodType = "Please select your blood type.";
+        //validating terms acceptance
         if (!form.termsAccepted) newErrors.termsAccepted = "You must accept the terms and conditions.";
         return newErrors;
     };
@@ -67,8 +76,8 @@ const RegistrationPage: React.FC = () => {
                     createdAt: new Date().toISOString()
                 };
                 console.log("Submitting registration with payload:", payload);
-                
-                const response = await axios.post("http://localhost:8080/users/register", payload);
+
+                const response = await apiGateway.post("/users/api/user/register", payload);
                 console.log("Registration response:", response);
                 if (response.status === 200) {
                     alert("Registration successful!");
@@ -123,7 +132,7 @@ const RegistrationPage: React.FC = () => {
                                         const codeB = b.code || "";
                                         return codeA.localeCompare(codeB);
                                     })
-                                    .map(({ code, dial_code, name }) => {
+                                    .map(({ code, dial_code }) => {
                                         // Convert country code to flag emoji
                                         const flag = code && code.length === 2
                                             ? String.fromCodePoint(...code.toUpperCase().split('').map(c => 127397 + c.charCodeAt(0)))

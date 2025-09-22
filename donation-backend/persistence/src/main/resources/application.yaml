@@ -1,6 +1,8 @@
 spring:
   application:
     name: persistence
+  profiles:
+    active: dev
   datasource:
     url: ${DB_URL}
     username: ${DB_USERNAME}
@@ -16,4 +18,4 @@ server:
 springdoc:
   api-docs:
     servers:
-      - url: /users
+      - url: /persistence

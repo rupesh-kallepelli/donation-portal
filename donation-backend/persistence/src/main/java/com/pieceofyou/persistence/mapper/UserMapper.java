@@ -1,15 +1,16 @@
 package com.pieceofyou.persistence.mapper;
 
-import com.pieceofyou.model.client.userservice.UserDTO;
-import com.pieceofyou.persistence.entity.User;
-
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+
+import com.pieceofyou.model.client.dto.security.request.UserRegistrationRequest;
+import com.pieceofyou.persistence.entity.User;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-    UserDTO toDto(User user);
-    User toEntity(UserDTO userDTO);
+    UserRegistrationRequest toDto(User user);
+
+    User toEntity(UserRegistrationRequest userDTO);
 }

@@ -1,13 +1,12 @@
 spring:
-    application:
-        name: user-service
+  application:
+   name: user-service
+  profiles:
+   active: dev
+jwt: 
+  secret: ZW85ZXh4aGZlaXk0M3k4NGl1aHJpaC1oODNocnUzci05MzJocjgyM2hyaj0yMw==
 server:
-    port: 8080
-springdoc:
-  api-docs:
-    servers:
-      - url: /users
-
+ port: 8080
 persistence:
   service:
     url: http://persistence:8080

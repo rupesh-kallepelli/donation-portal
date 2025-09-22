@@ -1,6 +1,8 @@
 spring:
   application:
     name: api-gateway
+  profiles:
+    active: dev
   cloud:
     gateway:
       globalcors:
@@ -39,9 +41,13 @@ springdoc:
     enabled: true
   swagger-ui:
     urls:
+      - name: api-gateway
+        url: /v3/api-docs
       - name: user-service
         url: /users/v3/api-docs
       - name: persistence-service
         url: /persistence/v3/api-docs
 server:
   port: 8080
+user-service:
+  url: http://user-service:8080

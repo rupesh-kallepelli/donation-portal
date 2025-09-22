@@ -1,10 +1,13 @@
 package com.pieceofyou.user.service.service;
 
-import com.pieceofyou.model.client.userservice.UserDTO;
+import org.springframework.http.ResponseEntity;
+
+import com.pieceofyou.model.client.dto.security.request.UserRegistrationRequest;
+import com.pieceofyou.model.client.dto.security.response.UserRegistrationResponse;
 
 import reactor.core.publisher.Mono;
 
 public interface UserService {
-    Mono<String> registerUser(UserDTO userDTO);
+    Mono<ResponseEntity<UserRegistrationResponse>> registerUser(UserRegistrationRequest userDTO);
 
 }
