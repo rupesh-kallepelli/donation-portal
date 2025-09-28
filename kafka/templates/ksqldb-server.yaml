@@ -14,9 +14,9 @@ spec:
     spec:
       containers:
         - name: ksqldb-server
-          image: { { .Values.ksqldb.image } }
+          image: {{ .Values.ksqldb.image }}
           ports:
-            - containerPort: { { .Values.ksqldb.port } }
+            - containerPort: {{ .Values.ksqldb.port }}
           env:
             - name: KSQL_BOOTSTRAP_SERVERS
               value: "kafka1:29091,kafka2:29092,kafka3:29093"
@@ -33,7 +33,7 @@ metadata:
   name: ksqldb-server
 spec:
   ports:
-    - port: { { .Values.ksqldb.port } }
-      targetPort: { { .Values.ksqldb.port } }
+    - port: {{ .Values.ksqldb.port }}
+      targetPort: {{ .Values.ksqldb.port }}
   selector:
     app: ksqldb-server

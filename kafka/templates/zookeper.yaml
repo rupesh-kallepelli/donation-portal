@@ -14,9 +14,9 @@ spec:
     spec:
       containers:
         - name: zookeeper
-          image: { { .Values.zookeeper.image } }
+          image: {{ .Values.zookeeper.image }}
           ports:
-            - containerPort: { { .Values.zookeeper.clientPort } }
+            - containerPort: {{ .Values.zookeeper.clientPort }}
           env:
             - name: ZOOKEEPER_CLIENT_PORT
               value: "{{ .Values.zookeeper.clientPort }}"
@@ -29,7 +29,7 @@ metadata:
   name: zookeeper
 spec:
   ports:
-    - port: { { .Values.zookeeper.clientPort } }
-      targetPort: { { .Values.zookeeper.clientPort } }
+    - port: {{ .Values.zookeeper.clientPort }}
+      targetPort: {{ .Values.zookeeper.clientPort }}
   selector:
     app: zookeeper

@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: kafka3
 spec:
-  replicas: { { .Values.kafka.replicas } }
+  replicas: {{ .Values.kafka.replicas }}
   selector:
     matchLabels:
       app: kafka3
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: kafka3
-          image: { { .Values.kafka.image } }
+          image: {{ .Values.kafka.image }}
           ports:
             - containerPort: 9092
           env:

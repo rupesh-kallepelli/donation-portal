@@ -14,9 +14,9 @@ spec:
     spec:
       containers:
         - name: schema-registry
-          image: { { .Values.schemaRegistry.image } }
+          image: {{ .Values.schemaRegistry.image }}
           ports:
-            - containerPort: { { .Values.schemaRegistry.port } }
+            - containerPort: {{ .Values.schemaRegistry.port }}
           env:
             - name: SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS
               value: "kafka1:29091,kafka2:29092,kafka3:29093"
@@ -31,7 +31,7 @@ metadata:
   name: schema-registry
 spec:
   ports:
-    - port: { { .Values.schemaRegistry.port } }
-      targetPort: { { .Values.schemaRegistry.port } }
+    - port: {{ .Values.schemaRegistry.port }}
+      targetPort: {{ .Values.schemaRegistry.port }}
   selector:
     app: schema-registry
