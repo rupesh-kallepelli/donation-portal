@@ -33,7 +33,7 @@ metadata:
   name: kafka-ui
 spec:
   ports:
-    - port: { { .Values.kafkaUi.port } }
-      targetPort: { { .Values.kafkaUi.port } }
+    - port: {{ .Values.kafkaUi.port }}
+      targetPort: {{ .Values.kafkaUi.port }}
   selector:
     app: kafka-ui
