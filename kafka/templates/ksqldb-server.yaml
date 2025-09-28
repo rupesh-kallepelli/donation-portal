@@ -28,6 +28,9 @@ spec:
               value: "http://0.0.0.0:8088"
             - name: KSQL_KSQL_SERVICE_ID
               value: "ksql-service"
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
       volumes:
         - name: config-volume
           persistentVolumeClaim:
