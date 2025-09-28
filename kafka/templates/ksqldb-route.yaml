@@ -1,0 +1,16 @@
+{{- if .Values.routes.enabled and .Values.routes.ksqldb }}
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: ksqldb
+  labels:
+    app: ksqldb
+spec:
+  to:
+    kind: Service
+    name: ksqldb-server
+  port:
+    targetPort: 8088
+  tls:
+    termination: edge
+{{- end }}

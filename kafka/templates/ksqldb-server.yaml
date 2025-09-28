@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ksqldb-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ksqldb-server
+  template:
+    metadata:
+      labels:
+        app: ksqldb-server
+    spec:
+      containers:
+        - name: ksqldb-server
+          image: { { .Values.ksqldb.image } }
+          ports:
+            - containerPort: { { .Values.ksqldb.port } }
+          env:
+            - name: KSQL_BOOTSTRAP_SERVERS
+              value: "kafka1:29091,kafka2:29092,kafka3:29093"
+            - name: KSQL_LISTENERS
+              value: "http://0.0.0.0:8088"
+            - name: KSQL_KSQL_SCHEMA_REGISTRY_URL
+              value: "http://schema-registry:8081"
+            - name: KSQL_KSQL_SERVICE_ID
+              value: "{{ .Values.ksqldb.serviceId }}"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ksqldb-server
+spec:
+  ports:
+    - port: { { .Values.ksqldb.port } }
+      targetPort: { { .Values.ksqldb.port } }
+  selector:
+    app: ksqldb-server

@@ -1,0 +1,16 @@
+{{- if .Values.routes.enabled and .Values.routes.schemaRegistry }}
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: schema-registry
+  labels:
+    app: schema-registry
+spec:
+  to:
+    kind: Service
+    name: schema-registry
+  port:
+    targetPort: 8081
+  tls:
+    termination: edge
+{{- end }}

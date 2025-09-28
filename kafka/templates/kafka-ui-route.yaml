@@ -1,0 +1,16 @@
+{{- if .Values.routes.enabled and .Values.routes.kafkaUi }}
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: kafka-ui
+  labels:
+    app: kafka-ui
+spec:
+  to:
+    kind: Service
+    name: kafka-ui
+  port:
+    targetPort: 8080
+  tls:
+    termination: edge
+{{- end }}

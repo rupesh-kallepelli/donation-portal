@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zookeeper
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zookeeper
+  template:
+    metadata:
+      labels:
+        app: zookeeper
+    spec:
+      containers:
+        - name: zookeeper
+          image: { { .Values.zookeeper.image } }
+          ports:
+            - containerPort: { { .Values.zookeeper.clientPort } }
+          env:
+            - name: ZOOKEEPER_CLIENT_PORT
+              value: "{{ .Values.zookeeper.clientPort }}"
+            - name: ZOOKEEPER_TICK_TIME
+              value: "{{ .Values.zookeeper.tickTime }}"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zookeeper
+spec:
+  ports:
+    - port: { { .Values.zookeeper.clientPort } }
+      targetPort: { { .Values.zookeeper.clientPort } }
+  selector:
+    app: zookeeper
