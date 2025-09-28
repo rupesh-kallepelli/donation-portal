@@ -18,10 +18,9 @@ spec:
           ports:
             - containerPort: 8088
           volumeMounts:
-            # Mounting the config files to /etc/ksqldb
+            # Mount the PVC volume for configuration files and logs
             - name: config-volume
               mountPath: /etc/ksqldb
-            # Mounting the logs directory to /etc/ksqldb/logs
             - name: logs-volume
               mountPath: /etc/ksqldb/logs
           env:
@@ -31,7 +30,31 @@ spec:
               value: "ksql-service"
       volumes:
         - name: config-volume
-          configMap:
-            name: ksqldb-config # ConfigMap with the necessary configuration files
+          persistentVolumeClaim:
+            claimName: ksqldb-config-pvc # PVC for storing config files
         - name: logs-volume
-          emptyDir: {}  # Logs volume (or you can use PVC for persistence)
+          persistentVolumeClaim:
+            claimName: ksqldb-logs-pvc # PVC for storing logs
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ksqldb-config-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi # Adjust storage size as necessary
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ksqldb-logs-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi # Adjust storage size as necessary
