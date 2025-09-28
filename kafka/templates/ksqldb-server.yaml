@@ -1,39 +1,62 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ksqldb-server
+  name: ksqldb
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ksqldb-server
+      app: ksqldb
   template:
     metadata:
       labels:
-        app: ksqldb-server
+        app: ksqldb
     spec:
       containers:
-        - name: ksqldb-server
-          image: {{ .Values.ksqldb.image }}
+        - name: ksqldb
+          image: confluentinc/ksqldb-server:0.29.0
           ports:
-            - containerPort: {{ .Values.ksqldb.port }}
+            - containerPort: 8088
           env:
-            - name: KSQL_BOOTSTRAP_SERVERS
-              value: "kafka1:29091,kafka2:29092,kafka3:29093"
-            - name: KSQL_LISTENERS
-              value: "http://0.0.0.0:8088"
-            - name: KSQL_KSQL_SCHEMA_REGISTRY_URL
-              value: "http://schema-registry:8081"
             - name: KSQL_KSQL_SERVICE_ID
-              value: "{{ .Values.ksqldb.serviceId }}"
+              value: "ksql-service"
+            - name: KSQL_LISTENER
+              value: "http://0.0.0.0:8088"
+            - name: KSQL_CONFIG_DIR
+              value: "/tmp/ksqldb/config"
+            - name: KSQL_LOG_DIR
+              value: "/tmp/ksqldb/logs"
+          volumeMounts:
+            - name: config-volume
+              mountPath: /tmp/ksqldb/config
+            - name: logs-volume
+              mountPath: /tmp/ksqldb/logs
+      volumes:
+        - name: config-volume
+          persistentVolumeClaim:
+            claimName: ksqldb-config-pvc
+        - name: logs-volume
+          persistentVolumeClaim:
+            claimName: ksqldb-logs-pvc
 ---
 apiVersion: v1
-kind: Service
+kind: PersistentVolumeClaim
 metadata:
-  name: ksqldb-server
+  name: ksqldb-config-pvc
 spec:
-  ports:
-    - port: {{ .Values.ksqldb.port }}
-      targetPort: {{ .Values.ksqldb.port }}
-  selector:
-    app: ksqldb-server
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ksqldb-logs-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
