@@ -8,7 +8,7 @@ zookeeper:
 
 kafka:
   image: "confluentinc/cp-kafka:7.5.0"
-  replicas: 3
+  replicas: 1
   listeners:
     internal: "PLAINTEXT"
     external: "PLAINTEXT"
