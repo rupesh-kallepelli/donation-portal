@@ -17,46 +17,21 @@ spec:
           image: confluentinc/ksqldb-server:0.29.0
           ports:
             - containerPort: 8088
+          volumeMounts:
+            # Mounting the config files to /etc/ksqldb
+            - name: config-volume
+              mountPath: /etc/ksqldb
+            # Mounting the logs directory to /etc/ksqldb/logs
+            - name: logs-volume
+              mountPath: /etc/ksqldb/logs
           env:
-            - name: KSQL_KSQL_SERVICE_ID
-              value: "ksql-service"
             - name: KSQL_LISTENER
               value: "http://0.0.0.0:8088"
-            - name: KSQL_CONFIG_DIR
-              value: "/tmp/ksqldb/config"
-            - name: KSQL_LOG_DIR
-              value: "/tmp/ksqldb/logs"
-          volumeMounts:
-            - name: config-volume
-              mountPath: /tmp/ksqldb/config
-            - name: logs-volume
-              mountPath: /tmp/ksqldb/logs
+            - name: KSQL_KSQL_SERVICE_ID
+              value: "ksql-service"
       volumes:
         - name: config-volume
-          persistentVolumeClaim:
-            claimName: ksqldb-config-pvc
+          configMap:
+            name: ksqldb-config # ConfigMap with the necessary configuration files
         - name: logs-volume
-          persistentVolumeClaim:
-            claimName: ksqldb-logs-pvc
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: ksqldb-config-pvc
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: ksqldb-logs-pvc
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
+          emptyDir: {}  # Logs volume (or you can use PVC for persistence)
