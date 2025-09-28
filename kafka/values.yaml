@@ -16,6 +16,10 @@ kafka:
     internal: "localhost:29091"
     external: "localhost:9092"
   offsetsTopicReplicationFactor: 3
+  brokerIds:
+    - 1
+    - 2
+    - 3
 
 schemaRegistry:
   image: "confluentinc/cp-schema-registry:7.5.0"
@@ -30,6 +34,7 @@ kafkaUi:
   image: "provectuslabs/kafka-ui:latest"
   port: 8080
   clusterName: "local"
+
 routes:
   enabled: true
   zookeeper: true
