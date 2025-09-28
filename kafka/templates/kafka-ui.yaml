@@ -16,7 +16,7 @@ spec:
         - name: kafka-ui
           image: "{{ .Values.kafkaUi.image }}"
           ports:
-            - containerPort: "{{ .Values.kafkaUi.port }}"
+            - containerPort: {{ .Values.kafkaUi.port }}
           env:
             - name: KAFKA_CLUSTERS_0_NAME
               value: "{{ .Values.kafkaUi.clusterName }}"
