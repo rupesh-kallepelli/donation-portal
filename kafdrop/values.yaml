@@ -6,8 +6,11 @@ image:
   pullPolicy: Always
 
 kafka:
-  brokerConnect: localhost:9092
-  properties: ""
+  brokerConnect: kafka-headless:9092 
+  properties: |
+    security.protocol=SASL_PLAINTEXT
+    sasl.mechanism=PLAIN
+    sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule required username="user1" password="pass1234";
   truststore: ""
   keystore: ""
   propertiesFile: "kafka.properties"
@@ -72,4 +75,4 @@ hostAliases: []
 
 mountProtoDesc: 
   enabled: false
-  hostPath:
+  hostPath: ""
