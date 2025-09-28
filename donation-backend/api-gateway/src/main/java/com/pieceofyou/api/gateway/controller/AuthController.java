@@ -1,5 +1,7 @@
 package com.pieceofyou.api.gateway.controller;
 
+import java.time.LocalDateTime;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,13 +30,17 @@ public class AuthController {
 
     private UserService userService;
 
-    public AuthController( UserService userService) {
+    public AuthController(UserService userService) {
         this.userService = userService;
     }
 
     @PostMapping("register")
     public Mono<ResponseEntity<UserRegistrationResponse>> registerUser(
             @RequestBody @Valid UserRegistrationRequest registrationRequest) {
+        log.info("Registering user: {}", registrationRequest);
+        if (null != registrationRequest) {
+            registrationRequest.setCreatedAt(LocalDateTime.now());
+        }
         return userService.registerUser(registrationRequest);
     }
 

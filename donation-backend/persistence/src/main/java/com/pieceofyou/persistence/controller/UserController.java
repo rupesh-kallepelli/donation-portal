@@ -36,16 +36,18 @@ public class UserController {
             log.info("User registered successfully: {} ", userDTO);
             return ResponseEntity.ok(response);
         } catch (UserAlreadyExistsException userAlreadyExistsException) {
-            log.error("Error while registering user {}", userAlreadyExistsException.getResponseMessages());
+            log.error("Error while registering user {}", userAlreadyExistsException.getMessage());
             return ResponseEntity
                     .status(HttpStatus.CONFLICT)
-                    .body(new UserRegistrationResponse(userAlreadyExistsException.getResponseMessages(),
+                    .body(new UserRegistrationResponse(
+                            List.of(userAlreadyExistsException.getMessage()),
                             HttpStatus.CONFLICT.value()));
         } catch (RegistrationException registrationException) {
-            log.error("Error while registering user {}", registrationException.getResponseMessages());
+            log.error("Error while registering user {}", registrationException.getMessage());
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
-                    .body(new UserRegistrationResponse(registrationException.getResponseMessages(),
+                    .body(new UserRegistrationResponse(
+                            List.of(registrationException.getMessage()),
                             HttpStatus.BAD_REQUEST.value()));
         } catch (Exception exception) {
             log.error("Unexpected error while registering user {}", exception.getMessage());

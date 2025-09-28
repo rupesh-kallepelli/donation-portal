@@ -14,24 +14,24 @@ import reactor.core.publisher.Mono;
 @Service
 @Slf4j
 public class UserServiceProxy {
-    private final WebClient userServiceProxyClient;
+    private final WebClient persistenceWebClient;
 
-    public UserServiceProxy(WebClient userServiceProxyClient) {
-        this.userServiceProxyClient = userServiceProxyClient;
+    public UserServiceProxy(WebClient persistenceWebClient) {
+        this.persistenceWebClient = persistenceWebClient;
     }
 
     public Mono<ResponseEntity<UserRegistrationResponse>> registerUser(UserRegistrationRequest userDTO) {
-        return userServiceProxyClient.post()
+        return persistenceWebClient.post()
                 .uri("/api/user/register")
                 .bodyValue(userDTO)
                 .exchangeToMono(response -> {
                     HttpStatusCode status = response.statusCode();
-                    Mono<UserRegistrationResponse> bodyMono = response.bodyToMono(UserRegistrationResponse.class);
-                    return bodyMono.map(body -> {
-                        log.info("Received response from persistence: status={}, body={}", status, body);
-                        return ResponseEntity.status(status).body(body);
-                    });
+                    return response.bodyToMono(UserRegistrationResponse.class)
+                            .defaultIfEmpty(new UserRegistrationResponse()) // Avoid null body
+                            .map(body -> {
+                                log.info("Received response from persistence: status={}, body={}", status, body);
+                                return ResponseEntity.status(status).body(body);
+                            });
                 });
-
     }
 }

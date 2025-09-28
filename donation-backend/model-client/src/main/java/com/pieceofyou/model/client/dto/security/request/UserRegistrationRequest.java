@@ -38,6 +38,6 @@ public class UserRegistrationRequest {
     @NotNull(message = "Blood type cannot be null")
     private String bloodType;
     private boolean organDonor;
-    @FutureOrPresent(message = "Created at must be in the present or in the future")
+    // @FutureOrPresent(message = "Created at must be in the present or in the future")
     private LocalDateTime createdAt;
 }

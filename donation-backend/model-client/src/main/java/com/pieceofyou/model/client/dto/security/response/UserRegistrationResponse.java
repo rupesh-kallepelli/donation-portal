@@ -15,8 +15,12 @@ import lombok.NoArgsConstructor;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserRegistrationResponse extends Response {
   private String userName;
+  private List<String> messages;
+  private Integer statusCode;
 
   public UserRegistrationResponse(List<String> messages, Integer statusCode) {
     super(messages, statusCode);
+    this.messages = messages;
+    this.statusCode = statusCode;
   }
 }

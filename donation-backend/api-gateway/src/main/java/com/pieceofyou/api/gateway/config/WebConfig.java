@@ -60,9 +60,9 @@ public class WebConfig {
         return http
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .authorizeExchange(exchange -> exchange
-                        .pathMatchers("/api/user/**", "/webjars/swagger-ui/index.html", "/v3/api-docs/**",
+                        .pathMatchers("/users/api/user/**", "/webjars/**", "/v3/api-docs/**",
                                 "/users/v3/api-docs/**", "/persistence/v3/api-docs/**", "/swagger-ui/**",
-                                "/swagger-ui.html")
+                                "/swagger**", "/api/auth/**")
                         .permitAll()
                         .anyExchange().authenticated())
                 .build();
@@ -98,8 +98,6 @@ public class WebConfig {
 
     @Bean
     public WebClient userServiceWebClient() {
-        return WebClient.builder()
-                .baseUrl(userServiceUrl)
-                .build();
+        return WebClient.builder().baseUrl(userServiceUrl).build();
     }
 }

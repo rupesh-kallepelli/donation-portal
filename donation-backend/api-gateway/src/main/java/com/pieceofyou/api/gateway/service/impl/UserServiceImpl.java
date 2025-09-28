@@ -1,7 +1,6 @@
 package com.pieceofyou.api.gateway.service.impl;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.pieceofyou.api.gateway.service.UserService;
@@ -41,17 +40,18 @@ public class UserServiceImpl implements UserService {
     return userServiceProxy.resendVerificationTokenFor(username);
   }
 
-
   @Override
   public Mono<Boolean> isUserExistsWithEmailAddress(String email) {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'findByUserEmail'");
   }
+
   @Override
   public Mono<Boolean> isUserExistsWithMobileNumber(String ext, String mobile) {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'findByUserEmail'");
   }
+
   @Override
   public Mono<ResponseEntity<AuthenticationResponse>> createJwtToken(AuthenticationRequest authenticationRequest) {
     // TODO Auto-generated method stub

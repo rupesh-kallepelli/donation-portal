@@ -31,6 +31,7 @@ public class UserController {
 
     @PostMapping("/register")
     public Mono<ResponseEntity<UserRegistrationResponse>> registerUser(@RequestBody UserRegistrationRequest userDTO) {
+        log.info("Registering user: {}", userDTO);
         return userService.registerUser(userDTO);
     }
 
