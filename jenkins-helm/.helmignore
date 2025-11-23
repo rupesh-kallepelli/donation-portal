@@ -1,0 +1,7 @@
+# ignore raw files that inflate chart package
+files/
+*.html
+*.md
+*.txt
+*.tgz
+.git
